@@ -40,6 +40,21 @@ class Solution:
                     return False
             i+=1
         return True
+
         
-        
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        d_s = {}
+        d_t = {}
+        for i in range(len(s)):
+            if s[i] not in d_s:
+                if t[i] not in d_t:
+                    d_s[s[i]] = t[i]
+                    d_t[t[i]] = 1
+                else:
+                    return False # s[i] not seen but t[i] mapped to other char in s
+            else:
+                if d_s[s[i]] != t[i]:
+                    return False
+        return True
         

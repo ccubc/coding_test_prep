@@ -87,3 +87,29 @@ def wrap(ans, target, pos, ctr):
                 ctr+=1
     return ans, pos_new, ctr
 
+
+# 20220305 Graph BFS (其实之前的解法就是Graph+BFS只是自己不知道而已)
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        visited = [[False]*n for _ in range(m)]
+        ans = [[0]*n for _ in range(m)]
+        cur_level = []
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    visited[i][j] = True
+                    cur_level.append([i,j])
+        cost = 1
+        dir = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+        while len(cur_level) > 0:
+            cur_level_len = len(cur_level)
+            for _ in range(cur_level_len):
+                v = cur_level.pop(0)
+                for d in dir:
+                    if (-1 < v[0]+d[0] < m) and (-1 < v[1]+d[1] < n) and visited[v[0]+d[0]][v[1]+d[1]] == False:
+                        visited[v[0]+d[0]][v[1]+d[1]] = True
+                        cur_level.append([v[0]+d[0], v[1]+d[1]])
+                        ans[v[0]+d[0]][v[1]+d[1]] = cost
+            cost += 1
+        return ans

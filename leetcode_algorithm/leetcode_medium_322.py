@@ -51,5 +51,34 @@ class Solution:
             return res[-1]
                 
                 
+# 20220227 DP + dfs
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        d = {}
+        for c in coins:
+            d[c] = 1
+        def dfs(amount):
+            if amount in d:
+                return d[amount]
+            if amount < 0:
+                return float('-inf')
+            d[amount] = min([i for i in [1+dfs(amount-c) for c in coins] if i > 0] + [float('inf')])
+            if d[amount] == float('inf'):
+                d[amount] = float('-inf')
+            return d[amount]
+        return max(dfs(amount), -1)
 
-            
+
+# 20220928
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [0] + [float('inf') for _ in range(amount)]
+        for i in range(1, amount + 1):
+            for c in coins:
+                if i - c >= 0:
+                    dp[i] = min(dp[i], dp[i-c] + 1)
+        if dp[-1] == float('inf'):
+            return -1
+        return dp[-1]

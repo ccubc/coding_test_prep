@@ -57,3 +57,30 @@ class Solution:
             s1 = s2
             s2 = s
         return s
+
+# 20220205
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        dp = [1] * (n+1)
+        for i in range(1, n):
+            dp[i+1] = dp[i] + dp[i-1]
+        return dp[-1]
+
+# 20220227
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        prev, ans = 1,1
+        for _ in range(1,n):
+            prev, ans = ans, ans + prev
+        return ans
+
+
+# 20220820
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n < 3:
+            return n
+        a, b = 1, 2
+        for i in range(3, n+1):
+            a, b = b, a+b
+        return b

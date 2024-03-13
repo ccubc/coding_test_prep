@@ -71,6 +71,34 @@ class Solution:
                         solution.append(s)
         return solution
                 
+
+
+# 20220224
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        ans = []
+        k = len(nums) - 1
+        while k > 1 and nums[k] >= 0:
+            if k < len(nums) - 1 and nums[k] == nums[k+1]:
+                k -= 1
+                continue # this case has been visited
+            # look for nums[i] + nums[j] = -nums[k] where i < j < k
+            j = k-1
+            i = 0
+            while i < j:
+                if nums[i] + nums[j] == -nums[k]:
+                    ans.append([nums[i], nums[j], nums[k]])
+                    while i < j and nums[i+1] == nums[i]:
+                        i += 1
+                    i += 1
+                elif nums[i] + nums[j] < -nums[k]:
+                    i += 1
+                else:
+                    j -= 1
+            k -= 1
+        return ans
+                
         
                 
         

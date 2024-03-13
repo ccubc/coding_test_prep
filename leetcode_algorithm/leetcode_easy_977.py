@@ -33,3 +33,16 @@ class Solution:
     def sortedSquares(self, A: List[int]) -> List[int]:
         return sorted([i**2 for i in A])
 
+# 20220207 O(N) two-pointers
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        ans = []
+        p, q = 0, len(nums) - 1
+        while p <= q:
+            if abs(nums[p]) <= nums[q]:
+                ans = [nums[q]**2] + ans
+                q -= 1
+            else:
+                ans = [nums[p]**2] + ans
+                p += 1
+        return ans

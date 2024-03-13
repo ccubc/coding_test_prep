@@ -37,3 +37,40 @@ class Solution:
     
     def search(self, nums: List[int], target: int) -> int:
         return max(-1, self.search_rec(nums, target))
+
+
+# 202208
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        mid = len(nums) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[mid] < target and len(nums) > 2: # search the right part
+            right_search = self.search(nums[mid+1:], target)
+            if right_search > -1:
+                return mid + 1 + right_search
+            else:
+                return -1
+        if nums[mid] > target and len(nums) > 1: # search the left part
+            left_search = self.search(nums[:mid], target)
+            if left_search > -1:
+                return left_search
+            else:
+                return -1
+        else:
+            return -1
+
+# 202212
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+			# the above is same as mid = (l + r) // 2 但是可以防止溢出报错
+            if target < nums[mid]:
+                r = mid - 1
+            elif target > nums[mid]:
+                l = mid + 1
+            else: # target == nums[mid]
+                return mid
+        return -1 

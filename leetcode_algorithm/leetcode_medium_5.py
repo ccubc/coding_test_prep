@@ -57,3 +57,55 @@ class Solution:
                 longest_res = cur_res
                 
         return longest_res
+
+
+# 20220217
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        l = len(s)
+        dp = [[False] * l for _ in range(l)] # dp[i][j]: whether s[i:j+1] is palindrom
+        # because j >= i, we only need to fill out the upper right triangle of this DP matrix
+        
+        ans = s[0]
+        max_l = 1
+        for i in range(l):
+            dp[i][i] = True # single char always palindrom
+        
+        for i in range(l-1):
+            if s[i] == s[i+1]: # case where substring consists of only 2 char
+                dp[i][i+1] = True
+                ans = s[i:i+2]
+                max_l = 2
+                
+        for k in range(3, l + 1):
+            for i in range(l - k + 1): # left index of substring
+                j = i + k - 1 # j max is l - k + k - 1, i.e. l - 1
+                if dp[i+1][j-1] and (s[i]==s[j]):
+                    dp[i][j] = True
+                    max_l = k
+                    ans = s[i: j+1]
+        
+        return ans
+
+
+# 20220327 expand around centre
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # middle out, note that the cases of odd/even length palindrom differ
+        ans, cur_max = "", 0
+        def check(l, r, ans, cur_max):
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l -= 1
+                r += 1
+            if r - l - 1 > cur_max:
+                cur_max = r - l - 1
+                ans = s[l+1: r]
+            return ans, cur_max
+                                     
+        for i in range(len(s)):
+            ans, cur_max = check(i, i, ans, cur_max)
+            if i < len(s)-1 and s[i] == s[i+1]:
+                ans, cur_max = check(i, i+1, ans, cur_max)
+        return ans
+        
+        

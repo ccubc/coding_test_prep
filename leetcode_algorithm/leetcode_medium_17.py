@@ -48,3 +48,31 @@ class Solution:
                     new_res.append(substr+letter)
             res, new_res = new_res, []
         return res
+
+
+# 20220405
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if len(digits) == 0:
+            return []
+        
+        dic = {
+            2: "abc",
+            3: "def",
+            4: "ghi",
+            5: "jkl",
+            6: "mno",
+            7: "pqrs",
+            8: "tuv",
+            9: "wxyz"
+        }
+        ans = [""]
+        for i in digits:
+            len_ans = len(ans)
+            for _ in range(len_ans):
+                cur = ans.pop(0)
+                for d in dic[int(i)]:
+                    ans.append(cur + d)
+        return ans
+                
+                

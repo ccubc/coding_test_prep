@@ -1,9 +1,10 @@
-# The Unix Workbench
+Source of the notes: The Unix Workbench, The missing semester in CS education by MIT
 
 ### Useful terminal commands:
 * `ls`: list files and directories; `ls -l`: long list (more detailed information); `ls -a`: list all files including hidden files
 * `mkdir`: create a new directory
 * `cd`: change directories
+* `cd -`: go to your previous directory
 * `rm`: remove files and directories
 * `pwd`: print working directory
 * `history`: print command history
@@ -36,7 +37,8 @@
 * `cp echo-out.txt ~/Desktop`: copy a file from one location to another
 * `cp -r Documents ~/Desktop`: copy a file folder, r means recursive, every underlying directory structure will be copied
 * `rm echo-out.txt`: remove file, i.e. permanently delete, not recommended (no way to undo)
-* `rmdir data`: remove data folder
+* `rmdir data`: remove data folder (if it's empty)
+* `rm -r data`: remove recursively for the data folder (remove the entire folder and its contents)
 
 
 ### Help

@@ -22,3 +22,11 @@ class Solution:
         n = len(nums)
         s = n*(n+1)//2
         return s - sum(nums)
+
+
+# 20220227
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        l = len(nums)
+        sum_ = (1+l)*l//2
+        return sum_ - sum(nums)

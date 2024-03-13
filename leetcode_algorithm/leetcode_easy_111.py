@@ -34,3 +34,25 @@ class Solution:
             return self.minDepth(root.left) + 1
         else:
             return self.minDepth(root.right) + 1
+
+
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        # level order traversal
+        res = 0
+        queue = []
+        if root:
+            queue.append(root)
+        while len(queue) > 0:
+            res += 1
+            cur_level_len = len(queue)
+            for i in range(cur_level_len):
+                cur_node = queue.pop(0)
+                if (not cur_node.left) and (not cur_node.right):
+                    return res
+                if cur_node.left:
+                    queue.append(cur_node.left)
+                if cur_node.right:
+                    queue.append(cur_node.right)
+        return res
+            

@@ -56,3 +56,27 @@ class Solution:
                 return [d[m], i]
             else:
                 d[nums[i]] 
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        d = {}
+        for i, n in enumerate(nums):
+            if target - n in d:
+                return [d[target-n], i]
+            d[n] = i
+
+# 20230930
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = {}
+        for i, n in enumerate(nums):
+            if n in d:
+                return [i, d[n]]
+            else:
+                d[target-n] = i

@@ -46,4 +46,19 @@ class Solution:
             #print(f"dfs current path = {path + [candidates[i]]}, candidates={candidates}, new target {target-candidates[i]}, i at {i}")
             self.dfs(candidates, i, target - candidates[i], path + [candidates[i]], res)
             
-        
+
+# 20220301
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        res = []
+        def dfs(start, target, cur_path):
+            if target < 0:
+                return
+            if target == 0:
+                res.append(cur_path)
+                return
+            for i in range(start, len(candidates)):
+                dfs(i, target-candidates[i], cur_path + [candidates[i]])
+        dfs(0, target, [])
+        return res

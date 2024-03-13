@@ -34,6 +34,26 @@ Example 5:
 Input: "{[]}"
 Output: true
 """
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        dic = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
+        stack = []
+        for c in s:
+            if c not in dic.keys():
+                stack.append(c)
+            else:
+                if (len(stack) > 0) and stack[-1] == dic[c]:
+                    stack.pop()
+                else:
+                    return False
+        return (len(stack) == 0)
+
+
 s = "{{[]}}"
 def isValid(s):
     list_s = list(s)
@@ -77,5 +97,28 @@ class Solution:
                 except:
                     return False
         return len(stack)==0
+
+
+# 20220327
+class Solution:
+    def isValid(self, s: str) -> bool:
+        d = {
+            ')': '(',
+            ']': '[',
+            '}': '{'
+            }
+        stack = []
+        for c in s:
+            if c in '([{':
+                stack.append(c)
+            elif len(stack) < 1 or d[c] != stack[-1]:
+                return False
+            else: # c in ')]}' and d[c] == stack[-1]
+                stack.pop()
+        if len(stack) > 0:
+            return False
+        return True
+                
         
+
     

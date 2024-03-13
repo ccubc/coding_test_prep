@@ -68,3 +68,29 @@ class Solution:
                 pivot += 1
                 pt += 1
         return pivot
+
+
+# 20220314: Using a min heap
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # priority queue and heap
+        heap = nums[:k]
+        heapq.heapify(heap) # a size-K MinHeap
+        for i in nums[k:]:
+            if i > heap[0]:
+                heapq.heappush(heap, i)
+                heapq.heappop(heap)
+        return heap[0]
+        
+
+# 20230113
+from heapq import heapify, heappushpop
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        h = nums[:k]
+        heapify(h)
+        for n in nums[k:]:
+            if n > h[0]:
+                heappushpop(h, n)
+        return h[0]

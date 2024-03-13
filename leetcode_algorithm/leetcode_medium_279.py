@@ -42,4 +42,27 @@ class Solution:
                         return counter
                     next_level.add(i-j)
                 current_level = next_level
+
+
+# the DP answer below was OK but exceeded time limit
+import math
+class Solution:
+    def numSquares(self, n: int) -> int:
+        dp = [10000] * n
+        for i in range(n): # i is index, i+1 is value
+            if int(math.sqrt(i+1))**2 == i+1:
+                dp[i] = 1
+            else:
+                for ps in range(1, int(math.sqrt(i+1))+1):
+                    dp[i] = min(dp[i], dp[ps**2-1]+dp[i-ps**2])
+        return dp[-1]
+                
+
+# The DP solution below won't time out but is not "that much different"
+    def numSquares(self, n: int) -> int:
+        dp = [0] + [float('inf')]*n
+        for i in range(1, n+1):
+            dp[i] = min(dp[i-j*j] for j in range(1, int(i**0.5)+1)) + 1
+        return dp[n]
+
         

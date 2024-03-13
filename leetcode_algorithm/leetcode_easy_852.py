@@ -20,3 +20,16 @@ class Solution:
                 continue
             else:
                 return i
+
+
+# faster solution using binary search
+class Solution:
+    def peakIndexInMountainArray(self, A: List[int]) -> int:
+        left, right = 1, len(A) - 2
+        while left < right:
+            mid = left + (right - left) // 2
+            if A[mid] < A[mid + 1]:
+                left = mid + 1
+            else:
+                right = mid
+        return left

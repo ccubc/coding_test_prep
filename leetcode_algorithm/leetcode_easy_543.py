@@ -33,3 +33,23 @@ class Solution:
         return max(max_depth(root.left) + max_depth(root.right),  
                    self.diameterOfBinaryTree(root.left),
                    self.diameterOfBinaryTree(root.right))
+
+# 20220913
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        def getHeight(root):
+            if not root:
+                return (-1, -1)
+            l, r = max(getHeight(root.left)) + 1, max(getHeight(root.right)) + 1
+            self.res = max(self.res, l + r)
+            return (l, r)
+        getHeight(root)
+        return self.res
+            

@@ -28,3 +28,14 @@ class Solution:
             ans = ans*2 + m
             n = (n-m)//2
         return ans
+
+# 20220227
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        ans = 0
+        for i in range(32):
+            m = n % 2
+            ans = (ans * 2) + m
+            n //= 2
+        return ans
+    

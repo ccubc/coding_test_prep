@@ -35,3 +35,29 @@ def maxProduct(nums):
 
 nums = [2,-5,-2,-4,3]
 print(maxProduct(nums))
+
+
+# 20220221
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_prod, most_neg_prod, ans = [None]*len(nums), [0]*len(nums), nums[0]
+        max_prod[0] = nums[0]
+        if nums[0] < 0:
+            most_neg_prod[0] = nums[0]
+        for i in range(1, len(nums)):
+            temp1, temp2 = nums[i]*max_prod[i-1], nums[i]*most_neg_prod[i-1]
+            max_prod[i] = max(nums[i], temp1, temp2)
+            most_neg_prod[i] = min(nums[i], temp1, temp2)
+            ans = max(ans, max_prod[i])
+        return ans
+
+# 20220930
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_carry, min_carry, res = nums[0], nums[0], nums[0]
+        for i in range(1, len(nums)):
+            prev_max = max_carry
+            max_carry = max(nums[i], nums[i]*prev_max, nums[i]*min_carry)
+            min_carry = min(nums[i], nums[i]*prev_max, nums[i]*min_carry)
+            res = max(res, max_carry)
+        return res

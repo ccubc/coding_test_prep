@@ -21,19 +21,24 @@ Constraints:
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        ans = []
-        self.dfs(n, n, ans, "")
-        return ans
-    
+        # dfs to write string from left to right
+        # left_remain tracks how many ( remains to be written into the string
+        # right_remain tracks how many ) remains to be written into the string
         
-    def dfs(self, left, right, ans, string):
-        if left > right:
-            return
-        if left == 0 and right == 0:
-            ans.append(string)
-            return
-        if left > 0:
-            self.dfs(left-1, right, ans, string+"(")
-        if right > 0:
-            self.dfs(left, right-1, ans, string+")")
+        def dfs(res, string, left_remain, right_remain):
+            if left_remain > right_remain or left_remain <0 or right_remain < 0:
+                # left_remain < right_remain means current string looks like ")" or "())"
+                # left_remain or right_remain < 0 means we ended the DFS traversal
+                return
+            if left_remain == right_remain == 0:
+                res.append(string)
+                return
+            if left_remain > 0:
+                dfs(res, string+"(", left_remain-1, right_remain)
+            if right_remain > 0:
+                dfs(res, string+")", left_remain, right_remain-1)
+                
+        res = []
+        dfs(res, "", n, n)
+        return res
         

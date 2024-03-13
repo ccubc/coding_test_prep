@@ -68,3 +68,39 @@ class Solution:
         slow.next = slow.next.next
         return dummy.next
             
+# 20220321
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        pt1 = pt2 = head
+        pre = dummy = ListNode()
+        dummy.next = head
+        for _ in range(n):
+            pt2 = pt2.next
+        while pt2:
+            pt2 = pt2.next
+            pre = pt1
+            pt1 = pt1.next
+        pre.next = pt1.next
+        return dummy.next
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(next=head)
+        pt1 = pt2 = dummy
+        for _ in range(n):
+            pt2 = pt2.next
+        while pt2.next:
+            pt2 = pt2.next
+            pt1 = pt1.next
+        pt1.next = pt1.next.next
+        return dummy.next

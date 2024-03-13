@@ -50,3 +50,59 @@ class Solution:
             if not dfs(i):
                 return False
         return True
+
+
+# 20220412
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # use topological sort to check whether there is cycle in graph
+        in_degree = collections.Counter({i:0 for i in range(numCourses)})
+        adj_list = collections.defaultdict(list)
+        for e in prerequisites:
+            adj_list[e[0]].append(e[1])
+            in_degree[e[1]] += 1
+        queue = collections.deque([c for c in in_degree if in_degree[c] == 0])
+        output = []
+        while queue:
+            c = queue.popleft()
+            output.append(c)
+            for d in adj_list[c]:
+                in_degree[d] -= 1
+                if in_degree[d] == 0:
+                    queue.append(d)
+        if len(output) < numCourses:
+            return False
+        return True
+            
+
+# 20231007
+from collections import defaultdict
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        inDegree = {i:0 for i in range(numCourses)}
+        unlock = defaultdict(list)
+        for p in prerequisites:
+            inDegree[p[0]] += 1
+            unlock[p[1]].append(p[0])
+        queue = []
+        ct = 0
+        for k, v in inDegree.items():
+            if v == 0:
+                queue.append(k)
+        while queue:
+            cur = queue.pop(0)
+            ct += 1
+            for c in unlock[cur]:
+                inDegree[c] -= 1
+                if inDegree[c] == 0:
+                    queue.append(c)
+        if ct == numCourses:
+            return True
+        return False
+                  
+            

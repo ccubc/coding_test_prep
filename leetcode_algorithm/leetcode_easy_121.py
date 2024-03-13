@@ -84,4 +84,34 @@ class Solution:
             cur_min = min(cur_min, i)
             result = max(i - cur_min, result)
         return result
+
+# 20220206
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        ans = 0
+        cur_min = prices[0]
+        for i in prices[1:]:
+            ans = max(ans, i - cur_min)
+            cur_min = min(cur_min, i)
+        return ans
+
+# 20220221
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        cur_min, cur_ans = 10001, 0
+        for i in prices:
+            cur_ans = max(i-cur_min, cur_ans)
+            cur_min = min(i, cur_min)
+        return cur_ans
+
+
+# 20220809
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        low = prices[0]
+        ans = 0
+        for i in prices:
+            low = min(low, i)
+            ans = max(ans, i - low)
+        return ans
             

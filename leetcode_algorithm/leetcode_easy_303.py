@@ -32,3 +32,15 @@ class NumArray:
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
 # param_1 = obj.sumRange(i,j)
+
+
+# 20220206: O(N) to initialize, O(1) for the method
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.acc_sum = [0]
+        for i, n in enumerate(nums):
+            self.acc_sum.append(self.acc_sum[i] + n)
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.acc_sum[right+1] - self.acc_sum[left]

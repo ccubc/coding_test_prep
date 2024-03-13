@@ -55,4 +55,25 @@ print(happy_number(19))
 
 
 
+# 20220904
+class Solution:
+    def getDigits(self, n):
+        res = []
+        while n > 0:
+            res.append(n % 10)
+            n //= 10
+        return res
+    
+    def isHappy(self, n: int) -> bool:
+        d = {n:1}
+        digits = self.getDigits(n)
+        new_n = sum([x**2 for x in digits])
+        while new_n not in d and new_n != 1:
+            d[new_n] = 1
+            digits = self.getDigits(new_n)
+            new_n = sum([x**2 for x in digits])
+        if new_n == 1:
+            return True
+        return False
+
 

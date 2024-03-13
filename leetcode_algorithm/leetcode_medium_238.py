@@ -30,3 +30,57 @@ class Solution:
         for i in range(len(nums)):
             res.append(left_product[i]*right_product[i])
         return res
+
+
+# 20220221
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        cur_prod = 1
+        ans = []
+        product_forward = []
+        for i in nums:
+            cur_prod *= i
+            product_forward.append(cur_prod)
+        product_backward = []
+        cur_prod = 1
+        for i in range(len(nums)-1, -1, -1):
+            cur_prod *= nums[i]
+            product_backward.append(cur_prod)
+        product_backward = product_backward[::-1]
+        ans.append(product_backward[1])
+        for i in range(1, len(nums)-1):
+            ans.append(product_forward[i-1]*product_backward[i+1])
+        ans.append(product_forward[-2])
+        return ans
+
+
+# space O(1) solution
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        ans = []
+        p = 1
+        for i in nums:
+            ans.append(p)
+            p *= i
+        p = 1
+        for i in range(len(nums)-1, -1, -1):
+            ans[i] *= p
+            p *= nums[i]
+        return ans
+
+
+# 20230410
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        l = len(nums)
+        left_product, right_product = [nums[0]]*l, [nums[-1]]*l
+        for i in range(1,l):
+            left_product[i] = nums[i] * left_product[i-1]
+        for i in range(l-2, -1, -1):
+            right_product[i] = nums[i] * right_product[i+1]
+        res = []
+        left_product = [1] + left_product
+        right_product = right_product + [1]
+        for i in range(1,l+1):
+            res.append(left_product[i-1]*right_product[i])
+        return res

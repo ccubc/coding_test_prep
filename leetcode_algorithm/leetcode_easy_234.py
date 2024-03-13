@@ -31,4 +31,56 @@ class Solution:
                 j-=1
             else:
                 return False
+        return true
+
+# 20220907
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        vals = []
+        while head:
+            vals.append(head.val)
+            head = head.next
+        i, j = 0, len(vals) - 1
+        while i < j:
+            if vals[i] != vals[j]:
+                return False
+            i += 1
+            j -= 1
+        return True
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        # find middle
+        p1, p2 = head, head
+        while p2 and p2.next:
+            p1 = p1.next
+            p2 = p2.next.next
+        
+        # reverse 2nd half
+        dummy = None
+        pre, cur = dummy, p1
+        while cur:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        
+        # compare
+        tail = pre
+        while tail:
+            if head.val != tail.val:
+                return False
+            head = head.next
+            tail = tail.next
         return True

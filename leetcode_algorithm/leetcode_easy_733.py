@@ -46,3 +46,19 @@ class Solution:
                 self.dfs(image, sr, sc+1, newColor, oldColor)
         return image
             
+# 20220817
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        if image[sr][sc] == color:
+            return image
+        queue = [[sr, sc]]
+        old_color = image[sr][sc]
+        image[sr][sc] = color
+        while queue:
+            cur_pixel = queue.pop(0)
+            for d in [[0,1],[0,-1],[1,0],[-1,0]]:
+                neigh = [cur_pixel[0]+d[0], cur_pixel[1]+d[1]]
+                if 0 <= neigh[0] < len(image) and 0 <=neigh[1] < len(image[0]) and image[neigh[0]][neigh[1]] == old_color:
+                    image[neigh[0]][neigh[1]] = color
+                    queue.append(neigh)
+        return image

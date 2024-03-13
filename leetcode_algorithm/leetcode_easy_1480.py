@@ -32,3 +32,10 @@ class Solution:
         for i in range(1, len(nums)):
             nums[i] += nums[i-1]
         return nums
+
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:
+        dp = [nums[0]]
+        for n in nums[1:]:
+            dp.append(dp[-1]+n)
+        return dp

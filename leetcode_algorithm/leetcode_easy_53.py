@@ -30,3 +30,34 @@ def solution(nums):
 print(solution([-2,1,-3,4,-1,2,1,-5,4])==6)
 print(solution([-2,3,-1,4,-1,2,1,-5,4])==8)
 
+# 20220205, DP
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        ans = nums[0] # initialize maximum subarray sum
+        dp = [0] * len(nums) # dp stores maximum subarray sum that ends with current index
+        dp[0] = nums[0]
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i-1]+nums[i], nums[i])
+            ans = max(ans, dp[i])
+        return ans
+
+# 20220221
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [nums[0]] * len(nums)
+        # 1-d dp to store: max subarray sum where the subarray includes index i
+        cur_ans = nums[0]
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i-1], 0) + nums[i]
+            cur_ans = max(cur_ans, dp[i])
+        return cur_ans
+
+# 20220614
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        pre = ans = nums[0]
+        for i in nums[1:]:
+            cur = i if pre < 0 else i + pre
+            ans = max(ans, cur)
+            pre = cur
+        return ans

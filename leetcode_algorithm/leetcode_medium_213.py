@@ -40,3 +40,19 @@ class Solution:
         for i in range(2, len(dp)):
             dp[i] = max(dp[i-2]+nums[i], dp[i-1])
         return dp[-1]
+
+
+# 20220301
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        
+        dp_w_head, dp_wo_head = [0,0,0], [0,0,0]
+        for n in nums:
+            dp_w_head.append(max(dp_w_head[-2], dp_w_head[-3])+n)
+        for n in nums[1:]:
+            dp_wo_head.append(max(dp_wo_head[-2], dp_wo_head[-3])+n)
+        # print(dp_w_head)
+        # print(dp_wo_head)
+        return max(dp_w_head[-2], dp_w_head[-3], dp_wo_head[-1], dp_wo_head[-2])

@@ -71,3 +71,52 @@ def mergeTwoLists(l1, l2):
 
 
 solution_linked_list = mergeTwoLists(l1_node, l2_node)
+
+# 20220315
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = pt = ListNode()
+        while list1 and list2:
+            if list1.val < list2.val:
+                pt.next = list1
+                list1 = list1.next
+                pt = pt.next
+            else:
+                pt.next = list2
+                list2 = list2.next
+                pt = pt.next
+        if list1:
+            pt.next = list1
+        if list2:
+            pt.next = list2
+        return dummy.next
+
+
+# 20220806
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = pt = ListNode()
+        while list1 and list2:
+            if list1.val < list2.val:
+                pt.next = list1
+                list1 = list1.next
+            else:
+                pt.next = list2
+                list2 = list2.next
+            pt = pt.next
+        if list1:
+            pt.next = list1
+        if list2:
+            pt.next = list2
+        return dummy.next
+        

@@ -20,6 +20,7 @@ Explanation: The array represents the integer 4321.
 This is a temporary script file.
 """
 
+# recursion
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
         if digits[-1] < 9:
@@ -28,3 +29,19 @@ class Solution:
             if len(digits)>1:
                 return self.plusOne(digits[:-1]) + [0]
             else: return [1,0]
+
+# iteration
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        res = digits.copy()
+
+        for i in range(len(digits) - 1, -1, -1):
+            if digits[i] < 9:
+                res[i] += 1
+                return res
+            else:
+                res[i] = 0
+        if res[0] == 0:
+            res = [1] + res
+        return res
+        

@@ -27,4 +27,27 @@ class Solution:
                 pass
             stack.append(s)
         return "".join(stack)
+
+
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        stack = [0]
+        for s in S:
+            stack.append(s)
+            if stack[-1] == stack[-2]:
+                stack.pop()
+                stack.pop()
+        return ''.join(stack[1:])
+
+
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        i=0
+        while i<len(S)-1:
+            if S[i]==S[i+1]:
+                S=S[:i] + S[i+2:]
+                i=max(i-1,0)
+            else:
+                i+=1
+        return S
                 
