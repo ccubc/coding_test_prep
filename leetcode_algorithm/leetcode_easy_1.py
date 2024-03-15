@@ -80,3 +80,18 @@ class Solution(object):
                 return [i, d[n]]
             else:
                 d[target-n] = i
+
+# 20240314
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = {}
+        for i, n in enumerate(nums):
+            if target - n not in d:
+                d[n] = i
+            else:
+                return [d[target-n], i]
