@@ -42,13 +42,10 @@ class Solution(object):
         :rtype: int
         """
         points.sort(key=lambda x: x[0])
-        print(points)
         ct = 1
         for i in range(len(points)-1):
-            print(points[i])
             if points[i+1][0] > points[i][1]: # no intersection
                 ct += 1
             else:
                 points[i+1][1] = min(points[i][1], points[i+1][1])
-            print(ct)
         return ct
