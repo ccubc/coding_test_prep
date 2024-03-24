@@ -59,4 +59,41 @@ class Solution:
             cur = tmp_l
             pre = tmp_r
         
+
+
+# 20240323
+class Solution(object):
+    def reorderList(self, head):
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        """
+        slow, fast = head, head
+        while fast and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        # slow would be the end of 1st half
+
+        second_half_head = slow.next
         
+        # cut off left part from right part
+        slow.next = None
+
+        # reverse the right part
+        cur, prev = second_half_head, None
+        while cur:
+            tmp = cur.next
+            cur.next = prev
+            prev, cur = cur, tmp
+        # prev will be head of reversed right part
+
+        # merge left part and reversed right part
+        right_head = prev
+        cur = head
+        while right_head:
+            tmp = cur.next
+            cur.next = right_head
+            right_head = right_head.next
+            cur = cur.next
+            cur.next = tmp
+            cur = cur.next    
