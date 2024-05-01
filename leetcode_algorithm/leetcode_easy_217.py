@@ -31,3 +31,17 @@ class Solution:
 class Solution:
 def containsDuplicate(self, nums: List[int]) -> bool:
     return not (len(nums) == len(set(nums)))
+
+# 20240430
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        ct = collections.defaultdict(int)
+        for i in nums:
+            ct[i] += 1
+            if ct[i] > 1:
+                return True
+        return False
