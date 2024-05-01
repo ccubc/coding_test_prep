@@ -84,3 +84,36 @@ class Solution:
         for i in range(1,l+1):
             res.append(left_product[i-1]*right_product[i])
         return res
+
+# 20240430
+# 这个解法应该是O(n)时间复杂度没错但是还是超时啦！
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        left_product = [1]
+        for i in nums:
+            left_product.append(left_product[-1] * i)
+        right_product = [1]
+        for i in nums[::-1]:
+            right_product = [i * right_product[0]] + right_product
+        return [left_product[i] * right_product[i+1] for i in range(len(nums))]
+
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        p = 1
+        ans = []
+        for i in nums:
+            ans.append(p)
+            p *= i
+        p = 1
+        for i in range(len(nums)-1, -1, -1):
+            ans[i] *= p
+            p *= nums[i]
+        return ans
