@@ -79,4 +79,34 @@ class Solution:
                                 return False
         return True
                             
-                
+from collections import Counter
+class Solution(object):
+    def checkDuplicate(self, nums):
+        ct = Counter([i for i in nums if i != "."])
+        ct["."] = 0
+        return max(ct.values()) <= 1
+
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        # check whether all rows are valid
+        for r in board:
+            if not self.checkDuplicate(r):
+                return False
+        # check whether all cols are valid
+        for i in range(9):
+            c = [row[i] for row in board]
+            if not self.checkDuplicate(c):
+                return False
+        # check whether all squares are valid
+        for i in [0, 3, 6]:
+            for j in [0, 3, 6]:
+                sq = []
+                for k in range(3):
+                    sq.extend(board[i+k][j: j+3])
+                if not self.checkDuplicate(sq):
+                    return False
+        return True
+            
