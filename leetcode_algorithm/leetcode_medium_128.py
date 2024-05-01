@@ -76,3 +76,22 @@ class Solution(object):
                     # update the left ends's limits again
                     min_max_dict[min_max_dict[i-1][0]][1] = min_max_dict[i+1][1]
         return max([v[1]-v[0] for v in min_max_dict.values()])+1
+
+
+# 更优雅的解法
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        set_nums = set(nums)
+        ans = 0
+        for n in set_nums:
+            if n - 1 not in set_nums:
+                # n is start of a consecutive interval (not middle point)
+                right = n + 1
+                while right in set_nums:
+                    right += 1
+                ans = max(ans, right - n)
+        return ans
