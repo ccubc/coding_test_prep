@@ -93,3 +93,26 @@ class Solution(object):
             else:
                 ans[d[''.join(sorted(s))]].append(s)
         return ans
+
+# 20240430
+from collections import Counter
+
+def counter_to_str(c):
+    sorted_k = sorted(c.keys())
+    sorted_v = [str(c[k]) for k in sorted_k]
+    return str(zip(sorted_v, sorted_k))
+
+
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        d = collections.defaultdict(list)
+        for s in strs:
+            c = Counter(s)
+            h = counter_to_str(c)
+            d[h].append(s)
+        
+        return [v for v in d.values()]
