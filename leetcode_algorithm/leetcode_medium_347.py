@@ -96,3 +96,25 @@ class Solution(object):
             if n > k:
                 heapq.heappop(hp)
         return [x[1] for x in hp]
+
+# 20240430
+from collections import Counter
+import heapq
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        c = Counter(nums)
+        h = []
+        heapq.heapify(h)
+        # push all the (value, key) pair into a max-heap
+        # note that python heapq is implemented as a min heap
+        for key, ct in c.items():
+            heapq.heappush(h, (-ct, key))
+        output = []
+        for _ in range(k):
+            output.append(heapq.heappop(h)[1])
+        return output
