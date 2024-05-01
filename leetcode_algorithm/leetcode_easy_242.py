@@ -58,3 +58,14 @@ class Solution(object):
             if v != 0:
                 return False
         return True
+
+# 20240430
+from collections import Counter
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        return Counter(s) == Counter(t)
