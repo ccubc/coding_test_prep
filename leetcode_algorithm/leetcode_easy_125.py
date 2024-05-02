@@ -38,3 +38,21 @@ class Solution:
             i += 1
             j -= 1
         return True
+
+# 20240501
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        clean_s = "".join([c for c in lower(s) if c.isalnum()])
+        print(clean_s)
+        l, r = 0, len(clean_s) - 1
+        while l < r:
+            if clean_s[l] != clean_s[r]:
+                return False
+            l += 1
+            r -= 1
+        return True
+        
