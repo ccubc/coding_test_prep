@@ -99,6 +99,47 @@ class Solution:
             k -= 1
         return ans
                 
-        
+# 20240502
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        pre = None
+        output = []
+        for i, n in enumerate(nums):
+            if n > 0: break
+            if n == pre:
+                # to eliminate duplicate
+                continue
+            find_2_sum = self.find2sum(nums[i+1:], -n)
+            if find_2_sum:
+                for l in find_2_sum:
+                    output.append([n]+list(l))
+            pre = n
+        return output
+    
+    def find2sum(self, nums, target):
+        """
+        Given target number, find 2 numbers in nums that sum up to target
+        Note that nums are sorted low to high
+        """
+        if len(nums) < 2:
+            return []
+        seen = set()
+        l, r = 0, len(nums) - 1
+        while l < r:
+            cur_sum = nums[l] + nums[r]
+            if cur_sum == target:
+                seen.add((nums[l], nums[r]))
+                l += 1
+            elif cur_sum > target:
+                r -= 1
+            elif cur_sum < target:
+                l += 1
+        return list(seen)
+ 
                 
         
