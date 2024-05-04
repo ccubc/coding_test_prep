@@ -81,3 +81,20 @@ class Solution:
         # print(max_right)
         # print(rain)
         return sum(rain)
+
+# 20240503 咦 居然一遍过？
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        height = [0] + height + [0]
+        l, r, max_l, max_r, cur_height, res = 0, len(height) - 1, 0, 0, 0, 0
+        while l <= r:
+            if max_l < max_r:
+                res += (cur_height - height[l])
+                l += 1
+                max_l = max(max_l, height[l])
+            else:
+                res += (cur_height - height[r])
+                r -= 1
+                max_r = max(max_r, height[r])
+            cur_height = min(max_l, max_r)
+        return res
