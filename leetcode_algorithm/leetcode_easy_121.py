@@ -114,4 +114,18 @@ class Solution:
             low = min(low, i)
             ans = max(ans, i - low)
         return ans
+
+# 20240504
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        cur_min, ans = float('inf'), 0
+        for p in prices:
+            cur_min = min(cur_min, p)
+            ans = max(ans, p-cur_min)
+        return ans
+
             
