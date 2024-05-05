@@ -134,3 +134,23 @@ class Solution(object):
                 l += 1
             r += 1
         return max_length
+
+# 20240504
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        p1, p2, ans, seen = 0, 0, 0, set()
+        while p2 < len(s):
+            if s[p2] not in seen:
+                seen.add(s[p2])
+            else:
+                while s[p1] != s[p2]:
+                    seen.remove(s[p1])
+                    p1 += 1
+                p1 += 1
+            p2 += 1
+            ans = max(ans, len(seen))
+        return ans
