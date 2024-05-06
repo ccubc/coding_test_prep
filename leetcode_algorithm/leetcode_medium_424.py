@@ -49,3 +49,26 @@ class Solution:
                 l += 1
             res = max(res, r - l + 1)
         return res
+
+# 20240505
+class Solution(object):
+    def characterReplacement(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        # sliding window, maintain a legit substr, 
+
+        l = 0
+        seen = {}
+        ans = 0
+        for r in range(len(s)):
+            seen[s[r]] = seen.get(s[r], 0) + 1
+            # if the most frequent char (the char you won't need to replace with other chars) + k (replacement action) < len of cur window
+            if max(seen.values()) + k < r - l + 1: 
+                # slide the left pt to the right by 1, and update the counter of the latest window 
+                seen[s[l]] -= 1
+                l += 1
+            ans = max(ans, r - l + 1)
+        return ans
