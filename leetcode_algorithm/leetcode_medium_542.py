@@ -113,3 +113,46 @@ class Solution:
                         ans[v[0]+d[0]][v[1]+d[1]] = cost
             cost += 1
         return ans
+
+
+# 20240510 Graph BFS
+class Solution(object):
+    def updateMatrix(self, mat):
+        """
+        :type mat: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        # graph; entry level is consisted of all 0s, then the next level is previous level's neighbours
+
+        # matrix to record whether a node has been visited
+        m, n = len(mat), len(mat[0])
+        visited = [[False]* n for _ in range(m)]
+
+        # result matrix
+        res = [[None] * n for _ in range(m)]
+
+        # initialize a queue with all 0s in the graph
+        queue = []
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    queue.append([i, j])
+                    visited[i][j] = True
+
+        # graph BFS
+        level = 0
+        dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        while queue:
+            cur_level_len = len(queue)
+            for _ in range(cur_level_len):
+                cur_node = queue.pop(0)
+                res[cur_node[0]][cur_node[1]] = level
+                for d in dirs:
+                    new_idx=[cur_node[0] + d[0], cur_node[1] + d[1]]
+                    if 0 <= new_idx[0] < m and 0 <= new_idx[1] < n:
+                        if not visited[new_idx[0]][new_idx[1]]:
+                            queue.append(new_idx)
+                            visited[new_idx[0]][new_idx[1]] = True
+            level += 1
+        return res
+
