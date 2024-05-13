@@ -157,3 +157,59 @@ class Solution(object):
             if diff > 1:
                 return False
         return diff == 1
+
+
+# 20240513
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        if endWord not in wordList:
+            return 0
+        wordList.append(beginWord)
+        queue = [beginWord]
+        visited = set()
+        visited.add(beginWord)
+        level = 1
+        graph = self.buildGraph(wordList)
+        # print(graph)
+        # print(level)
+        # print(queue)
+        while queue:
+            cur_level_len = len(queue)
+            for _ in range(cur_level_len):
+                cur_node = queue.pop(0)
+                if cur_node == endWord:
+                    return level
+                for n in graph[cur_node]:
+                    if n not in visited:
+                        visited.add(n)
+                        queue.append(n)
+
+            level += 1
+            # print(level)
+            # print(queue)
+        return 0
+
+    def buildGraph(self, wordList):
+        graph = collections.defaultdict(list)
+        for i in range(len(wordList)):
+            for j in range(i+1, len(wordList)):
+                if self.isOneCharDiff(wordList[i], wordList[j]):
+                    graph[wordList[i]].append(wordList[j])
+                    graph[wordList[j]].append(wordList[i])
+        return graph
+            
+
+    def isOneCharDiff(self, w1, w2):
+        diff = 0
+        for i in range(len(w1)):
+            if w1[i] != w2[i]:
+                diff += 1
+                if diff > 1:
+                    return False
+        return diff == 1
