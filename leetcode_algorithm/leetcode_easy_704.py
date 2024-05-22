@@ -74,3 +74,24 @@ class Solution:
             else: # target == nums[mid]
                 return mid
         return -1 
+
+# 20240521
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = l + (r - l + 1) // 2 # if len(nums) is odd, mid is middle idx; if len(nums) is even, mid is the right to the middle idx
+            if nums[mid] == target:
+                return mid
+            if nums[mid] < target:
+                l = mid
+            else:
+                r = mid - 1
+        if nums[l] == target:
+            return l
+        return -1
