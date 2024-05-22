@@ -154,3 +154,26 @@ class Solution(object):
             p2 += 1
             ans = max(ans, len(seen))
         return ans
+
+
+# 20240521
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        seen = set()
+        l, r = 0, 0
+        ans = 0
+        for r, c in enumerate(s):
+            if c not in seen:
+                seen.add(c)
+                r += 1
+                ans = max(ans, r - l)
+            else:
+                while s[l] != c:
+                    seen.remove(s[l])
+                    l += 1
+                l += 1
+        return ans
